@@ -14,6 +14,7 @@
 	<!-- google font -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 	<!-- fontawesome -->
 	<link rel="stylesheet" href="assets/css/all.min.css">
 	<!-- bootstrap -->
@@ -65,14 +66,33 @@
                 <li><a href="{{ route ('clientpage.shop') }}">Shop</a></li>
 								<li><a href="{{ route ('clientpage.about') }}">About</a></li>							
 								<li><a href="{{ route ('clientpage.contact') }}">Contact</a></li>
-								<li><a href="#">Login</a>
-								</li>
-								<li>
-									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
-									</div>
-								</li>
+								@guest
+            <li><a href="{{ route('login') }}">Login</a></li>
+            <li class="nav-setting">
+                <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
+            </li>
+        @else
+            <li>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <li class="nav-setting">
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">
+                            <i class='bx bx-user'></i> Profile
+                        </a>
+                    </li>
+                </form>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <li class="nav-setting">
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();this.closest('form').submit();">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </li>
+                    </form>
+                </li>
+            </li>
+        @endguest
 							</ul>
 						</nav>
 						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-search"></i></a>
